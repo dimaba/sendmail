@@ -133,6 +133,7 @@ Recommended settings
 Gmail/GoogleApps:
 - Using SSL: smtp.gmail.com, port 465
 - Using TLS: smtp.gmail.com, port 587
+Note: These connections may be blocked if 'Access for less secure apps' is disabled in your Google Account settings
 
 Outlook.com/Live/Hotmail
 - Using TLS: smtp.live.com, port 587
