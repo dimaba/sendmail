@@ -24,7 +24,7 @@ Sending a simple plaintext message
     plaintext = 'This is our message'
 ```
 
-* Create a MailSender object. The MailSender object allows you to connect to an SMTP server by specifying the server address and port, as well as your username and password. If no server and port are specified, the MailSender defaults to using Gmail's SMTP server. The connection to the server can be made using SSL (default) or TLS (see a description of the MailSender class below). Check which type of connection your SMTP server supports. 
+* Create a MailSender object. The MailSender object allows you to connect to an SMTP server by specifying the server address and port, as well as your username and password. If no server and port are specified, the MailSender defaults to using Gmail's SMTP server. The connection to the server can be made using SSL (see a description of the MailSender class below) or TLS (default). Check which type of connection your SMTP server supports. 
 
 ```python
     testmailsender = MailSender('username@server.com', 'password', ('smtp.server.com', 465), use_SSL=True)
