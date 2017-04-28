@@ -18,8 +18,8 @@ class MailSender:
     """
     Contains email contents, connection settings and recipient settings. Has functions to compose and send mail. MailSenders are tied to an SMTP server, which must be specified when the instance is created. The default SMTP server is Google's Gmail server, with a connection over TLS.
 
-    :param in_username: Username for mail server login (optional)
-    :param in_password: Password for mail server login (optional)
+    :param in_username: Username for mail server login (required)
+    :param in_password: Password for mail server login (required)
     :param in_server: SMTP server to connect to (default is Gmail)
     :param use_SSL: Select whether to connect over SSL (True) or TLS (False) (default is TLS). Keep in mind that SMTP servers use different ports for SSL and TLS.
 
@@ -148,7 +148,7 @@ class MailSender:
         self.connected = False
 
     def send_all(self, close_connection=True):
-         """Sends message to all specified recipients, one at a time. Optionally closes connection after sending. Close the connection after sending if you are not sending another batch of emails immediately after.
+        """Sends message to all specified recipients, one at a time. Optionally closes connection after sending. Close the connection after sending if you are not sending another batch of emails immediately after.
 
         :param close_connection: Should the connection to the server be closed after all emails have been sent (True) or not (False)
          """
