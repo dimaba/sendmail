@@ -13,6 +13,12 @@ import random
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from pathlib import Path
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate
+from email import encoders
 
 class MailSender:
     """
@@ -44,7 +50,7 @@ class MailSender:
                "Connected: {} \n" \
                "Username: {}, Password: {}".format(self.server_name, self.server_port, self.connected, self.username, self.password)
 
-    def set_message(self, in_plaintext, in_subject="", in_from=None, in_htmltext=None):
+    def set_message(self, in_plaintext, in_subject="", in_from=None, in_htmltext=None, attachment=None, filename=None):
         """
         Creates the MIME message to be sent by e-mail. Optionally allows adding subject and 'from' field. Sets up empty recipient fields. To use html messages specify an htmltext input
 
@@ -61,8 +67,15 @@ class MailSender:
 
         if self.html_ready:
             self.msg = MIMEMultipart('alternative')  # 'alternative' allows attaching an html version of the message later
+            part = MIMEBase('application', "octet-stream")
+
+            part.set_payload(open(attachment, "rb").read())
+            encoders.encode_base64(part)
+            part.add_header('Content-Disposition', "attachment; filename=" + filename)
+            self.msg.attach(part)
             self.msg.attach(MIMEText(in_plaintext, 'plain'))
             self.msg.attach(MIMEText(in_htmltext, 'html'))
+
         else:
             self.msg = MIMEText(in_plaintext, 'plain')
 
