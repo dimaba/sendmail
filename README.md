@@ -10,9 +10,9 @@ Features
 * Simplifies Python's email libraries into one easy to use object
 * Send email messages in plain text or HTML markup
 * Connects to SMTP servers using TLS or SSL
+* Attachments are now supported
 
 Notable missing features:
-* Attachments are not supported yet
 * Does not support setting recipients as CC/BBC yet
 
 Sending a simple plaintext message
