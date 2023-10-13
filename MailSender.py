@@ -1,7 +1,6 @@
 # MAIN TODO:
-# 1. error handling
-# 2. make plaintext optional
-# 3. make CC and BCC accessible
+# 1. make plaintext optional
+# 2. make CC and BCC accessible
 
 """
 This package provides a simplified way to send email. There is no functionality here that could not be achieved with Python's builtin packages. This just does some of the work for you.
@@ -150,10 +149,31 @@ class MailSender:
         Must be called before sending messages. Connects to SMTP server using the username and password.
         """
         if not self.use_SSL:
-            self.smtpserver.starttls()
-        self.smtpserver.login(self.username, self.password)
-        self.connected = True
-        print("Connected to {}".format(self.server_name))
+            try:
+                self.smtpserver.starttls()
+            except smtplib.SMTPException as tls_error:
+                # Client and server cannot establish a secure connection:
+                print(f"TLS Error: {tls_error}")
+                self.connected = False
+        try:
+            self.smtpserver.login(self.username, self.password)
+            self.connected = True
+            print("Connected to {}".format(self.server_name))
+        except smtplib.SMTPAuthenticationError as error:
+            # Handle authetication error:
+            self.connected = False
+            print(f"Authetication error : {error}.")
+        except smtplib.SMTPException as error:
+            # Handle SMTP errors
+            print(f'SMTP Error: {error}')
+        except Exception as error:
+            print(f"{error} : Connection to SMTP server failed.")
+        
+        finally:
+            # Close connection
+            self.smtpserver.close()
+
+        
 
     def disconnect(self):
         self.smtpserver.close()

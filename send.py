@@ -1,7 +1,7 @@
 """This example shows all necessary steps for sending a basic plain text message."""
 
 # Import the MailSender class from the sendmail module
-from sendmail import MailSender
+from MailSender import MailSender
 
 # First, let's create the plain text email we want to send. If you create this message manually in a Python script,
 # you will have to specify newlines etc yourself. To avoid that you can write the message separately in a text file
