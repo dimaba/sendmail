@@ -8,16 +8,13 @@ This package provides a simplified way to send email. There is no functionality 
 """
 
 import smtplib
-import string
-import random
+
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from pathlib import Path
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
-from email.utils import COMMASPACE, formatdate
 from email import encoders
 
 class MailSender:
@@ -67,12 +64,14 @@ class MailSender:
 
         if self.html_ready:
             self.msg = MIMEMultipart('alternative')  # 'alternative' allows attaching an html version of the message later
-            part = MIMEBase('application', "octet-stream")
 
-            part.set_payload(open(attachment, "rb").read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', "attachment; filename=" + filename)
-            self.msg.attach(part)
+            if attachment is not None:
+                part = MIMEBase('application', "octet-stream")
+                part.set_payload(open(attachment, "rb").read())
+                encoders.encode_base64(part)
+                part.add_header('Content-Disposition', "attachment; filename=" + filename)
+                self.msg.attach(part)
+                
             self.msg.attach(MIMEText(in_plaintext, 'plain'))
             self.msg.attach(MIMEText(in_htmltext, 'html'))
 
@@ -166,8 +165,9 @@ class MailSender:
         :param close_connection: Should the connection to the server be closed after all emails have been sent (True) or not (False)
          """
         if not self.connected:
-            raise ConnectionError("Not connected to any server. Try self.connect() first")
+            raise ConnectionError("Not connected to any server. Try to connect to the server first")
 
+        
         print("Message: {}".format(self.msg.get_payload()))
 
         for recipient in self.recipients:

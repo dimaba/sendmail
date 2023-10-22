@@ -28,7 +28,7 @@ ourmailsender = MailSender('username@gmail.com', 'password', ('smtp.gmail.com', 
 html = """Hello John, <br>
             I'm just testing my new fancypants email sending system here.<br>
             <b>Adam</b>"""
-ourmailsender.set_message(plaintext, "This is a test", "Adam Adamson", html, "example.txt", "example.txt")
+ourmailsender.set_message(plaintext, "This is a test", "Adam Adamson", html, "attachment.txt", "attachment.txt")
 
 # Next, we set the recipient for our email. The recipients are always entered as a list (or tuple) even when
 # there is only one recipient
