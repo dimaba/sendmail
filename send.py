@@ -1,7 +1,7 @@
 """This example shows all necessary steps for sending a basic plain text message."""
 
 # Import the MailSender class from the sendmail module
-from sendmail import MailSender
+from MailSender import MailSender
 
 # First, let's create the plain text email we want to send. If you create this message manually in a Python script,
 # you will have to specify newlines etc yourself. To avoid that you can write the message separately in a text file
@@ -28,7 +28,7 @@ ourmailsender = MailSender('username@gmail.com', 'password', ('smtp.gmail.com', 
 html = """Hello John, <br>
             I'm just testing my new fancypants email sending system here.<br>
             <b>Adam</b>"""
-ourmailsender.set_message(plaintext, "This is a test", "Adam Adamson", html, "example.txt", "example.txt")
+ourmailsender.set_message(plaintext, "This is a test", "Adam Adamson", html, "attachment.txt", "attachment.txt")
 
 # Next, we set the recipient for our email. The recipients are always entered as a list (or tuple) even when
 # there is only one recipient
